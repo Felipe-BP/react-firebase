@@ -1,9 +1,31 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
+import './navbar.css'
 import fire from '../config/fire'
 
 
 class NavBar extends Component {
+
+    state = {
+        user: {},
+        email : ''
+    }
+
+    componentDidMount(){
+        this.userListener();
+    }
+
+    userListener(){
+        fire.auth().onAuthStateChanged((user) => {
+            if(user){
+                this.setState({ user: user });
+                const em = user.email.charAt(0).toUpperCase();
+                this.setState({ email : em });
+            }else{
+                this.setState({ user: null });
+            }
+        });
+    }
 
     logout(e){
         fire.auth().signOut();
@@ -40,8 +62,8 @@ class NavBar extends Component {
                             <a className="nav-link" href="#contato">Contato</a>
                         </li>
                     </ul>
-                    <Link to="/" className="btn btn-light">Login</Link>
-                    <button onClick={this.logout} className="btn btn-light ml-1">Logout</button>
+                    {this.state.user ? <button class="user btn btn-lg btn-danger">{this.state.email}</button> : <button class="hidden"></button>}
+                    {this.state.user? <button onClick={this.logout} className="btn btn-light ml-1">Logout</button> : <button className="hidden"></button>}
                 </div>
                 </nav>
         )

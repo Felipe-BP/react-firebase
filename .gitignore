@@ -2,7 +2,6 @@
 
 # dependencies
 /node_modules
-/src/components/config
 
 # testing
 /coverage

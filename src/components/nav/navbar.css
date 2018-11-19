@@ -1,0 +1,15 @@
+.user {
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    background-color : red; 
+    color : white; 
+    border-radius : 50%;
+    height: 50px; 
+    width: 50px; 
+    margin: 2px 0px 0px 5px;
+}
+
+.hidden{
+    display: none;
+}
