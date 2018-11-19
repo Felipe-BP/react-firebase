@@ -1,13 +1,15 @@
 {
-  "name": "portifolio",
+  "name": "t3",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://Felipe-BP.github.io/t2/",
   "dependencies": {
     "ajv": "^6.0.0",
+    "firebase": "^5.5.8",
     "gh-pages": "^2.0.1",
     "react": "^16.5.2",
     "react-dom": "^16.6.0",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.5"
   },
   "scripts": {

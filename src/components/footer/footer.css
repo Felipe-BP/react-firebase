@@ -5,6 +5,9 @@
     align-items: center;
     min-height: 1rem;
     max-height: 15rem;
+    width: 100%;
+    position: relative;
+    bottom: 0;
 }
 
 .feet{
