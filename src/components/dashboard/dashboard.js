@@ -106,7 +106,7 @@ class Dashboard extends Component {
                   </ul>
                 </div>
               </section>
-              <Footer name="Felipe Bueno" email="gvv.fel@gmail.com" number="+55 (43) 996209896" />
+              <Footer name="Felipe Bueno Web Developer" email="gvv.fel@gmail.com" number="+55 (43) 996209896" />
             </div>
             );
   }

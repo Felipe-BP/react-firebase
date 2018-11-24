@@ -12,8 +12,8 @@ class App extends Component {
               <Fragment>
                 <NavBar />
                   <Route exact path="/" component={Login} />
-                  <Route exact path="/form" component={Form} />
-                  <Route exact path="/dashboard" component={Dashboard} />
+                  <Route exact path="/form/:id" component={Form} />
+                  <Route exact path="/dashboard/:id" component={Dashboard} />
               </Fragment>
             );
   }

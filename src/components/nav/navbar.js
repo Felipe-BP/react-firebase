@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
 import './navbar.css'
 import fire from '../config/fire'
 import { Popover, PopoverHeader, PopoverBody } from 'reactstrap' 
@@ -16,6 +15,9 @@ class NavBar extends Component {
         this.userListener = this.userListener.bind(this);
         this.logout = this.logout.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.deleteUser = this.deleteUser.bind(this);
+        this.dash = this.dash.bind(this);
+        this.form = this.form.bind(this);
     }
 
     componentWillMount(){
@@ -51,6 +53,16 @@ class NavBar extends Component {
             console.log(`O usuario ${user.email} foi deletado`)}).catch ((error) => { console.log("Erro ao deletar usuario!") })
     }
 
+    dash(){
+        const uid = fire.auth().currentUser.uid;
+        window.location.href = "/dashboard/" + uid;
+    }
+
+    form(){
+        const uid = fire.auth().currentUser.uid;
+        window.location.href = "/form/" + uid;
+    }
+
     render(){
         return (
                 <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" id="nav-bar">
@@ -61,7 +73,7 @@ class NavBar extends Component {
                     {this.state.user ?
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item active">
-                                <Link to="/dashboard" className="ml-4 nav-link" href="#">Home<span class="sr-only">(current)</span></Link>
+                                <a onClick={this.dash} className="ml-4 nav-link" style={{cursor: 'pointer'}}>Home<span class="sr-only">(current)</span></a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#perfil">Perfil</a>
@@ -90,6 +102,7 @@ class NavBar extends Component {
                                             <PopoverBody>
                                                 <div style={{display: "flex", flexDirection: "column"}}>
                                                     <button onClick={this.deleteUser} className="btn btn-light">Excluir Conta</button>
+                                                    <button onClick={this.form} className="btn btn-light mt-1">Atualizar Dados</button>
                                                     <button onClick={this.logout} className="btn btn-light mt-1">Logout</button>
                                                 </div>
                                             </PopoverBody>

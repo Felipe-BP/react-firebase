@@ -4,6 +4,7 @@ import fire from '../config/fire';
 class Login extends Component{
     
     constructor(props){
+        
         super(props);
         this.state = {
             email: '',
@@ -17,7 +18,9 @@ class Login extends Component{
 
     login(e){
         e.preventDefault();
-        fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {window.location.href = "/form";
+        fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+            const uid = fire.auth().currentUser.uid;
+            window.location.href = "/dashboard/" + uid;
         }).catch((error) => {
             this.setState({ e: error.message })
            });
@@ -25,7 +28,9 @@ class Login extends Component{
 
     signup(e){
         e.preventDefault();
-        fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {window.location.href = "/form";
+        fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+            const uid = fire.auth().currentUser.uid;
+            window.location.href = "/dashboard/" + uid;
         }).catch((error) => {
             this.setState({ e: error.message })
            });
