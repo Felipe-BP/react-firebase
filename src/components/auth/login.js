@@ -17,7 +17,7 @@ class Login extends Component{
 
     login(e){
         e.preventDefault();
-        fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {window.location.href = "/dashboard";
+        fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {window.location.href = "/form";
         }).catch((error) => {
             this.setState({ e: error.message })
            });
@@ -25,7 +25,7 @@ class Login extends Component{
 
     signup(e){
         e.preventDefault();
-        fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {window.location.href = "/dashboard";
+        fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {window.location.href = "/form";
         }).catch((error) => {
             this.setState({ e: error.message })
            });

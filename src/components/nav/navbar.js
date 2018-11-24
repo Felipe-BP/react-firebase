@@ -2,16 +2,23 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import './navbar.css'
 import fire from '../config/fire'
-
+import { Popover, PopoverHeader, PopoverBody } from 'reactstrap' 
 
 class NavBar extends Component {
 
-    state = {
-        user: {},
-        email : ''
+    constructor(props){
+        super(props);
+        this.state = {
+            user: {},
+            email : '',
+            popoverOpen: false
+        }
+        this.userListener = this.userListener.bind(this);
+        this.logout = this.logout.bind(this);
+        this.toggle = this.toggle.bind(this);
     }
 
-    componentDidMount(){
+    componentWillMount(){
         this.userListener();
     }
 
@@ -32,6 +39,18 @@ class NavBar extends Component {
         window.location.href = "/";
     }
 
+    toggle() {
+        this.setState({
+          popoverOpen: !this.state.popoverOpen
+        });
+    }
+
+    deleteUser(){
+        const user = fire.auth().currentUser;
+        user.delete().then(() => { 
+            console.log(`O usuario ${user.email} foi deletado`)}).catch ((error) => { console.log("Erro ao deletar usuario!") })
+    }
+
     render(){
         return (
                 <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" id="nav-bar">
@@ -39,31 +58,43 @@ class NavBar extends Component {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarText">
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
-                            <Link to="/dashboard" className="ml-4 nav-link" href="#">Home<span class="sr-only">(current)</span></Link>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#perfil">Perfil</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#habilidades">Habilidades</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#blog">Blog</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#trabalhos">Trabalhos</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#infos">Infos</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#contato">Contato</a>
-                        </li>
-                    </ul>
-                    {this.state.user ? <button class="user btn btn-lg btn-danger">{this.state.email}</button> : <button class="hidden"></button>}
-                    {this.state.user? <button onClick={this.logout} className="btn btn-light ml-1">Logout</button> : <button className="hidden"></button>}
+                    {this.state.user ?
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item active">
+                                <Link to="/dashboard" className="ml-4 nav-link" href="#">Home<span class="sr-only">(current)</span></Link>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#perfil">Perfil</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#habilidades">Habilidades</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#blog">Blog</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#trabalhos">Trabalhos</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#infos">Infos</a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="#contato">Contato</a>
+                            </li>
+                        </ul> : <ul></ul>
+                    }
+                    {this.state.user ? <div>
+                                        <button id="popover" onMouseEnter={this.toggle} class="user btn btn-lg btn-danger">{this.state.email}</button>
+                                        <Popover placement="bottom" isOpen={this.state.popoverOpen} onMouseLeave={this.toggle} target="popover" toggle={this.toggle}>
+                                            <PopoverHeader>Conta</PopoverHeader>
+                                            <PopoverBody>
+                                                <div style={{display: "flex", flexDirection: "column"}}>
+                                                    <button onClick={this.deleteUser} className="btn btn-light">Excluir Conta</button>
+                                                    <button onClick={this.logout} className="btn btn-light mt-1">Logout</button>
+                                                </div>
+                                            </PopoverBody>
+                                        </Popover></div> : <button class="hidden"></button>
+                    }
                 </div>
                 </nav>
         )

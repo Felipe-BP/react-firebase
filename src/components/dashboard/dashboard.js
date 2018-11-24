@@ -7,7 +7,7 @@ import Habilidades from '../skills/habilidades';
 import Blog from '../blog/blog'
 import Work from '../works/work'
 import Infos from '../infos/infos'
-import Form from '../form/form'
+import Contact from '../contact/contact'
 import Footer from '../footer/footer'
 import fire from '../config/fire'
 
@@ -21,7 +21,7 @@ class Dashboard extends Component {
     }
   }
 
-  componentDidMount(){
+  componentWillMount(){
     this.authListener();
   }
 
@@ -80,7 +80,7 @@ class Dashboard extends Component {
                 <h3>Mais algumas informações sobre mim</h3>
                 <Infos />
                 <div>
-                  <a target="_blank" href="https://github.com/Felipe-BP">
+                  <a target="_blank" rel="noopener noreferrer" href="https://github.com/Felipe-BP">
                     <img src="./assets/github-icon.png" alt="icone repositório github"/>
                   </a>
                   <p>Link para o meu perfil do GitHub</p>
@@ -90,18 +90,18 @@ class Dashboard extends Component {
                 <div className="title">
                   <Title value="Contato" color="true" />
                 </div>
-                <Form />
+                <Contact />
                 <div className="title">
                   <h5 className="p">Link para as minhas redes sociais!</h5>
                   <ul id="redes-sociais">
                     <li>
-                      <a target="_blank" href="https://www.facebook.com/felipe.bueno.56679"><img src="./assets/facebook-icon.png" alt="icone facebook"/></a>
+                      <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/felipe.bueno.56679"><img src="./assets/facebook-icon.png" alt="icone facebook"/></a>
                     </li>
                     <li>
-                      <a target="_blank" href="https://www.instagram.com/felipe.bueno01/?hl=pt-br"><img src="./assets/instagram-icon.png" alt="icone instagram"/></a>
+                      <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/felipe.bueno01/?hl=pt-br"><img src="./assets/instagram-icon.png" alt="icone instagram"/></a>
                     </li>
                     <li>
-                      <a target="_blank" href="https://www.linkedin.com/in/felipe-bueno-de-paula-85898815b/"><img src="./assets/linkedin-icon.png" alt="icone linkedin"/></a>
+                      <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/felipe-bueno-de-paula-85898815b/"><img src="./assets/linkedin-icon.png" alt="icone linkedin"/></a>
                     </li>
                   </ul>
                 </div>
