@@ -14,12 +14,12 @@ class Perfil extends Component {
         const {idiomas} = this.props
         const {formacao} = this.props
         const {atividades} = this.props
-        const {pathPhoto} = this.props
+        const {path} = this.props
         return <Fragment>
             <div className="center">
                 <div>
                     <div className="title">
-                        <img src={pathPhoto} alt="foto-perfil" className="foto" />
+                        <img id="avatar-perfil" src={path} alt="foto-perfil" className="foto" />
                     </div>
                     <p id="introducao">Olá, meu nome é <b>{nome} {sobrenome}</b> e este é o meu Portifólio!</p>
                 </div>

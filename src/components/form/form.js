@@ -1,5 +1,6 @@
 import React from 'react'
 import fire from '../config/fire'
+import { runInThisContext } from 'vm';
 
 class Form extends React.Component{
     
@@ -8,6 +9,7 @@ class Form extends React.Component{
         this.state = {
             user : {},
             pathPhoto: '',
+            curriculo : '',
             nome : '',
             sobrenome : '',
             text_interesses : '',
@@ -41,10 +43,45 @@ class Form extends React.Component{
         this.addSkills = this.addSkills.bind(this);
         this.addAtividades = this.addAtividades.bind(this);
         this.fileSelect = this.fileSelect.bind(this);
+        this.lerDados = this.lerDados.bind(this);
     }
 
     componentWillMount(){
         this.authListener();
+        this.lerDados();
+    }
+
+    lerDados(){
+        const ref = fire.database().ref(`users${this.props.match.params.id}`)
+        if(ref != null){
+            fire.database().ref(`users${this.props.match.params.id}`).child('user').once('value').then(snap => {
+                this.setState({
+                pathPhoto : snap.val().pathPhoto,
+                curriculo : snap.val().curriculo,
+                nome: snap.val().name,
+                sobrenome: snap.val().lastName,        
+                interesses : snap.val().interesses,
+                idiomas: snap.val().idiomas,
+                formacao: snap.val().formacao,
+                atividades: snap.val().atividades,
+                skills: snap.val().skills,
+                trabalho1: snap.val().trabalho1,
+                link1 : snap.val().link1,
+                trabalho2: snap.val().trabalho2,
+                link2 : snap.val().link2,
+                trabalho3: snap.val().trabalho3,
+                link3 : snap.val().link3,
+                biografia: snap.val().biografia,
+                profissao: snap.val().profissao,
+                linkGitH: snap.val().linkGitH,
+                linkInsta: snap.val().linkInsta,
+                linkFace: snap.val().linkFace,
+                linkLinke: snap.val().linkLinke
+                })
+            })
+        }else {
+            return
+        }
     }
     
     authListener(){
@@ -113,6 +150,7 @@ class Form extends React.Component{
     submit(){
         const data = {
             pathPhoto : this.state.pathPhoto,
+            curriculo : this.state.curriculo,
             name: this.state.nome,
             lastName: this.state.sobrenome,
             interesses: this.state.interesses,
@@ -139,6 +177,12 @@ class Form extends React.Component{
     fileSelect = event =>{
         this.setState({
             pathPhoto : "/assets/" + event.target.files[0].name
+        })
+    }
+
+    curriculoSelect = event =>{
+        this.setState({
+            curriculo : "/assets/" + event.target.files[0].name
         })
     }
 
@@ -198,16 +242,18 @@ class Form extends React.Component{
                     <textarea id="trabalho1" className="form-control mt-2" cols="33" rows="5" onChange={this.handleChange} placeholder="Trabalho 1 Descrição" type="text" required ></textarea>
                     <input id="link1" onChange={this.handleChange} type="text" className="form-control mt-2" placeholder="Insira Link do Repositório Trab1" required />
                     <textarea id="trabalho2" className="form-control mt-2" cols="33" rows="5" onChange={this.handleChange} placeholder="Trabalho 2 Descrição" type="text" required ></textarea>
-                    <input id="link2" onChange={this.handleChange} type="text" className="form-control mt-2" placeholder="Insira Link do Repositório Trab1" required />
+                    <input id="link2" onChange={this.handleChange} type="text" className="form-control mt-2" placeholder="Insira Link do Repositório Trab2" required />
                     <textarea id="trabalho3" className="form-control mt-2" cols="33" rows="5" onChange={this.handleChange} placeholder="Trabalho 3 Descrição" type="text" required ></textarea>
-                    <input id="link3" onChange={this.handleChange} type="text" className="form-control mt-2" placeholder="Insira Link do Repositório Trab1" required />
+                    <input id="link3" onChange={this.handleChange} type="text" className="form-control mt-2" placeholder="Insira Link do Repositório Trab3" required />
                     <textarea id="biografia" className="form-control mt-2" cols="33" rows="10" onChange={this.handleChange} placeholder="Biografia" required ></textarea>
                     <textarea id="profissao" className="form-control mt-2" cols="33" rows="10" onChange={this.handleChange} placeholder="Profissão" required ></textarea>
                     <input id="linkGitH" onChange={this.handleChange} type="text" className="form-control mt-2" placeholder="Insira o Link do GitHub" required />
                     <input id="linkInsta" onChange={this.handleChange} type="text" className="form-control mt-2" placeholder="Insira o Link do Instagram" required />
                     <input id="linkFace" onChange={this.handleChange} type="text" className="form-control mt-2" placeholder="Insira o Link do Facebook" required />
                     <input id="linkLinke" onChange={this.handleChange} type="text" className="form-control mt-2" placeholder="Insira o Link do Linkedin" required />
-                    <input type="file" onChange={this.fileSelect} className="form-control mt-2" />
+                    <input type="file" onChange={this.fileSelect} className="form-control mt-2" required />
+                    <label>Escolha seu curriculo</label>
+                    <input type="file" onChange={this.curriculoSelect} className="form-control mt-2" required />
                     <button type="submit" onClick={this.submit} className="mt-1 mb-2 btn btn-purple btn-lg full-width">Atualizar Dados</button>
                     </div>
                 </div>

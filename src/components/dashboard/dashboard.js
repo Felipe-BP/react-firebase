@@ -18,7 +18,8 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       user: {},
-      pathPhoto: "/assets/common-user.png",
+      pathPhoto : '',
+      curriculo : '',
       nome : '',
       sobrenome : '',
       interesses : [],
@@ -63,6 +64,7 @@ class Dashboard extends Component {
     fire.database().ref(`users${this.props.match.params.id}`).child('user').once('value').then(snap => {
       this.setState({
         pathPhoto : snap.val().pathPhoto,
+        curriculo : snap.val().curriculo,
         nome: snap.val().name,
         sobrenome: snap.val().lastName,        
         interesses : snap.val().interesses,
@@ -92,9 +94,9 @@ class Dashboard extends Component {
                 <div className="title">
                   <Title value="Perfil" color="false" />
                 </div>
-                <Perfil nome={this.state.nome} sobrenome={this.state.sobrenome} interesses={this.state.interesses} idiomas={this.state.idiomas} formacao={this.state.formacao} atividades={this.state.atividades} pathPhoto={this.state.pathPhoto}/>
+                <Perfil path={this.state.pathPhoto} nome={this.state.nome} sobrenome={this.state.sobrenome} interesses={this.state.interesses} idiomas={this.state.idiomas} formacao={this.state.formacao} atividades={this.state.atividades} />
                 <div className="title">
-                  <Button value="Download Currículo" content="./assets/Currículo.pdf" color="false"/>
+                  <Button value="Download Currículo" content={this.state.curriculo} color="false"/>
                 </div>
               </section>
               <section id="habilidades">

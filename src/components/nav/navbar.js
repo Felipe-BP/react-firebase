@@ -49,6 +49,7 @@ class NavBar extends Component {
 
     deleteUser(){
         const user = fire.auth().currentUser;
+        fire.database().ref("users" + user.uid).child('user').remove();
         user.delete().then(() => { 
             console.log(`O usuario ${user.email} foi deletado`)}).catch ((error) => { console.log("Erro ao deletar usuario!") })
     }
@@ -73,7 +74,7 @@ class NavBar extends Component {
                     {this.state.user ?
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item active">
-                                <a onClick={this.dash} className="ml-4 nav-link" style={{cursor: 'pointer'}}>Home<span class="sr-only">(current)</span></a>
+                                <a onClick={this.dash} className="ml-4 nav-link" style={{cursor: 'pointer'}}>Home<span className="sr-only">(current)</span></a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#perfil">Perfil</a>
