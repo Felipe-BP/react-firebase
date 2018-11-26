@@ -20,7 +20,7 @@ class Login extends Component{
         e.preventDefault();
         fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
             const uid = fire.auth().currentUser.uid;
-            window.location.href = "/dashboard/" + uid;
+            window.location.href = "/form/" + uid;
         }).catch((error) => {
             this.setState({ e: error.message })
            });
@@ -30,7 +30,7 @@ class Login extends Component{
         e.preventDefault();
         fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
             const uid = fire.auth().currentUser.uid;
-            window.location.href = "/dashboard/" + uid;
+            window.location.href = "/form/" + uid;
         }).catch((error) => {
             this.setState({ e: error.message })
            });

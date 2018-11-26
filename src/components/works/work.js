@@ -2,29 +2,36 @@ import React, { Component } from 'react'
 import './work.css'
 
 class Work extends Component {
-    state = {
-        about: ['Sistema para simplificar o gerenciamento de jogos do usuário, com funcionalidades de jogos favoritos, avaliação, recomendação e descrições gerais.', 'Aplicação Java para meu próprio editor de texto', 'Website criado com apenas HTML5 e CSS3 à partir de um site já pronto!']
+
+    constructor(props){
+        super(props)
     }
 
     render(){
+        const {trabalho1} = this.props
+        const {link1} = this.props
+        const {trabalho2} = this.props
+        const {link2} = this.props
+        const {trabalho3} = this.props
+        const {link3} = this.props
         return (
             <div className="flex-container">
-                <div className="flex-item" id="editor">
+                <div className="flex-item" id="div-img">
                     <div className="sob">
-                        <p id="about">{this.state.about[0]}</p>
-                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/Felipe-BP/Editor-de-Texto" className="repositorio">Ir para repositório</a>
+                        <p id="about">{trabalho1}</p>
+                        <a target="_blank" rel="noopener noreferrer" href={link1} className="repositorio">Ir para repositório</a>
                     </div>
                 </div>
-                <div className="flex-item" id="its">
+                <div className="flex-item" id="div-img">
                     <div className="sob">
-                        <p id="about">{this.state.about[1]}</p>
-                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/itsONE/itsGAMES_Desk-Java" className="repositorio">Ir para repositório</a>
+                        <p id="about">{trabalho2}</p>
+                        <a target="_blank" rel="noopener noreferrer" href={link2} className="repositorio">Ir para repositório</a>
                     </div>
                 </div>
-                <div className="flex-item" id="casamento">
+                <div className="flex-item" id="div-img">
                     <div className="sob">
-                        <p id="about">{this.state.about[2]}</p>
-                        <a target="_blank" rel="noopener noreferrer" href="https://github.com/Felipe-BP/t01" className="repositorio">Ir para repositório</a>
+                        <p id="about">{trabalho3}</p>
+                        <a target="_blank" rel="noopener noreferrer" href={link3} className="repositorio">Ir para repositório</a>
                     </div>
                 </div>
             </div>

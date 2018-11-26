@@ -13,18 +13,8 @@
     width: 100%;
 }
 
-#editor{
-    background-image: url("/assets/text-editor.jpg");
-    background-size: cover;
-}
-
-#its{
-    background-image: url("/assets/its-one.jpg");
-    background-size: cover;
-}
-
-#casamento{
-    background-image: url("/assets/casamento-trabalho.jpg");
+#div-img{
+    background-image: url("/assets/work-image.jpg");
     background-size: cover;
 }
 

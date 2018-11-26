@@ -5,27 +5,28 @@ class Perfil extends Component {
 
     constructor(props){
         super(props);
-        this.state = {
-            interesses: ['Aprofundar conhecimentos no Desenvolvimento para Web', 'Aprender sobre desenvolvimento mobile', 'Tecnologias como JavaScript, Python, ReactJS, Redux, NodeJS'],
-            idiomas: ['Inglês Intermediário', 'Espanhol Intermediário'],
-            formacao: ['Graduação Tecnologia em Análise e Desenvolvimento de Sistemas UTFPR-CP(2019)', 'Ensino Médio Colégio Estadual Olavo Bilac(2016)'],
-            atividades: ['Estagiário na Prefeitura Municipal de Ibiporã, setor de Tecnologia da Informação']
-        }
     }
 
     render(){
+        const {nome} = this.props
+        const {sobrenome} = this.props
+        const {interesses} = this.props
+        const {idiomas} = this.props
+        const {formacao} = this.props
+        const {atividades} = this.props
+        const {pathPhoto} = this.props
         return <Fragment>
             <div className="center">
                 <div>
                     <div className="title">
-                        <img src="./assets/felipe-bueno.png" alt="foto-perfil" className="foto" />
+                        <img src={pathPhoto} alt="foto-perfil" className="foto" />
                     </div>
-                    <p id="introducao">Olá, meu nome é <b>Felipe Bueno</b> e este é o meu Portifólio!</p>
+                    <p id="introducao">Olá, meu nome é <b>{nome} {sobrenome}</b> e este é o meu Portifólio!</p>
                 </div>
                 <div className="lista">
                     <h3>Interesses</h3>
                     <ul>
-                        {this.state.interesses.map(
+                        {interesses.map(
                             (item, index) => {
                                 return <li key={index}>{item}</li>
                             }
@@ -33,7 +34,7 @@ class Perfil extends Component {
                     </ul>
                     <h3>Idiomas</h3>
                     <ul>
-                        {this.state.idiomas.map(
+                        {idiomas.map(
                             (item, index) => {
                                 return <li key={index}>{item}</li>
                             }
@@ -41,7 +42,7 @@ class Perfil extends Component {
                     </ul>
                     <h3>Formação</h3>
                     <ul>
-                        {this.state.formacao.map(
+                        {formacao.map(
                             (item, index) => {
                                 return <li key={index}>{item}</li>
                             }
@@ -49,7 +50,7 @@ class Perfil extends Component {
                     </ul>
                     <h3>Atividades Desenvolvidas</h3>
                     <ul>
-                        {this.state.atividades.map(
+                        {atividades.map(
                             (item, index) => {
                                 return <li key={index}>{item}</li>
                             }

@@ -4,10 +4,10 @@ import fire from '../config/fire'
 class Form extends React.Component{
     
     constructor(props){
-        
         super(props);
         this.state = {
             user : {},
+            pathPhoto: '',
             nome : '',
             sobrenome : '',
             text_interesses : '',
@@ -20,12 +20,18 @@ class Form extends React.Component{
             atividades : [],
             text_skills : '',
             skills : [],
+            trabalho1 : '',
+            link1: '',
+            trabalho2 : '',
+            link2: '',
+            trabalho3 : '',
+            link3: '',
             biografia : '',
             profissao : '',
-            github : '',
-            facebook : '',
-            instagram : '',
-            linkedin : ''
+            linkGitH : '',
+            linkInsta : '',
+            linkFace : '',
+            linkLinke : ''
         }
         this.submit = this.submit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -34,6 +40,7 @@ class Form extends React.Component{
         this.addFormacao = this.addFormacao.bind(this);
         this.addSkills = this.addSkills.bind(this);
         this.addAtividades = this.addAtividades.bind(this);
+        this.fileSelect = this.fileSelect.bind(this);
     }
 
     componentWillMount(){
@@ -44,10 +51,9 @@ class Form extends React.Component{
         fire.auth().onAuthStateChanged((user) => {
           if(user){
             this.setState({ user });
-            console.log(this.state);
+            this.lerDados();
           } else {
             this.setState({ user : null });
-            console.log(this.state);
             window.location.href = "/";
           }
         });
@@ -59,7 +65,7 @@ class Form extends React.Component{
         });
     }
 
-    addInteresses = (e) => {
+    addInteresses = () => {
         if(this.state.text_interesses.length){
             this.setState({
                 text_interesses : "",
@@ -105,7 +111,35 @@ class Form extends React.Component{
     }
 
     submit(){
+        const data = {
+            pathPhoto : this.state.pathPhoto,
+            name: this.state.nome,
+            lastName: this.state.sobrenome,
+            interesses: this.state.interesses,
+            idiomas: this.state.idiomas,
+            formacao: this.state.formacao,
+            atividades: this.state.atividades,
+            skills: this.state.skills,
+            trabalho1: this.state.trabalho1,
+            link1: this.state.link1,
+            trabalho2: this.state.trabalho2,
+            link2: this.state.link2,
+            trabalho3: this.state.trabalho3,
+            link3: this.state.link3,
+            biografia: this.state.biografia,
+            profissao: this.state.profissao,
+            linkGitH : this.state.linkGitH,
+            linkInsta : this.state.linkInsta,
+            linkFace : this.state.linkFace,
+            linkLinke : this.state.linkLinke
+        }
+        fire.database().ref(`users${this.props.match.params.id}`).child('user').set(data);
+    }
 
+    fileSelect = event =>{
+        this.setState({
+            pathPhoto : "/assets/" + event.target.files[0].name
+        })
     }
 
     render(){
@@ -115,56 +149,67 @@ class Form extends React.Component{
                     <div className="flex-itemm">
                     <div className="row">
                         <div className="col">
-                            <input value={this.state.nome} type="text" class="form-control" placeholder="Primeiro Nome" required />
+                            <input id="nome" onChange={this.handleChange} type="text" className="form-control" placeholder="Primeiro Nome" required />
                         </div>
                         <div className="col">
-                            <input value={this.state.sobrenome} type="text" class="form-control" placeholder="Último Nome" required />
+                            <input id="sobrenome" onChange={this.handleChange} type="text" className="form-control" placeholder="Último Nome" required />
                         </div>
                     </div>
                     <div className="row">
                         <div className="col">
-                            <input id="text_interesses" class="form-control mt-2" value={this.state.interesses} onChange={this.handleChange} placeholder="Interesses" type="text" />
+                            <input id="text_interesses" value={this.state.text_interesses} className="form-control mt-2" onChange={this.handleChange} placeholder="Interesses" type="text" required />
                         </div>
                         <div className="col">
-                            <button className="btn btn-success mt-2" onClick={this.addInteresses}>V</button>
+                            <a href className="btn btn-success mt-2" onClick={this.addInteresses}>Enviar</a>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col">
-                            <input id="text_idiomas" class="form-control mt-2" value={this.state.idiomas} onChange={this.handleChange} placeholder="Idiomas" type="text" />
+                            <input id="text_idiomas" value={this.state.text_idiomas} className="form-control mt-2" onChange={this.handleChange} placeholder="Idiomas" type="text" required />
                         </div>
                         <div className="col">
-                            <button className="btn btn-success mt-2" onClick={this.addIdiomas}>V</button>
+                            <a href className="btn btn-success mt-2" onClick={this.addIdiomas}>Enviar</a>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col">
-                            <input id="text_formacao" class="form-control mt-2" value={this.state.formacao} onChange={this.handleChange} placeholder="Formação" type="text" />
+                            <input id="text_formacao" value={this.state.text_formacao} className="form-control mt-2" onChange={this.handleChange} placeholder="Formação" type="text" required />
                         </div>
                         <div className="col">
-                            <button className="btn btn-success mt-2" onClick={this.addFormacao}>V</button>
+                            <a href className="btn btn-success mt-2" onClick={this.addFormacao}>Enviar</a>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col">
-                            <input id="text_skills" class="form-control mt-2" value={this.state.skills} onChange={this.handleChange} placeholder="Habilidades" type="text" />
+                            <input id="text_skills" value={this.state.text_skills} className="form-control mt-2" onChange={this.handleChange} placeholder="Habilidades" type="text" required />
                         </div>
                         <div className="col">
-                            <button className="btn btn-success mt-2" onClick={this.addSkills}>V</button>
+                            <a href className="btn btn-success mt-2" onClick={this.addSkills}>Enviar</a>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col">
-                            <input id="text_atividades" class="form-control mt-2" value={this.state.atividades} onChange={this.handleChange} placeholder="Atividades Desenvolvidas" type="text" />
+                            <input id="text_atividades" value={this.state.text_atividades} className="form-control mt-2" onChange={this.handleChange} placeholder="Atividades Desenvolvidas" type="text" required />
                         </div>
                         <div className="col">
-                            <button className="btn btn-success mt-2" onClick={this.addAtividades}>V</button>
+                            <a href className="btn btn-success mt-2" onClick={this.addAtividades}>Enviar</a>
                         </div>
                     </div>
-                    <textarea className="form-control mt-2" name="your-message" cols="33" rows="10" placeholder="Biografia"></textarea>
-                    <textarea className="form-control mt-2" name="your-message" cols="33" rows="10" placeholder="Profissão"></textarea>
+                    <textarea id="trabalho1" className="form-control mt-2" cols="33" rows="5" onChange={this.handleChange} placeholder="Trabalho 1 Descrição" type="text" required ></textarea>
+                    <input id="link1" onChange={this.handleChange} type="text" className="form-control mt-2" placeholder="Insira Link do Repositório Trab1" required />
+                    <textarea id="trabalho2" className="form-control mt-2" cols="33" rows="5" onChange={this.handleChange} placeholder="Trabalho 2 Descrição" type="text" required ></textarea>
+                    <input id="link2" onChange={this.handleChange} type="text" className="form-control mt-2" placeholder="Insira Link do Repositório Trab1" required />
+                    <textarea id="trabalho3" className="form-control mt-2" cols="33" rows="5" onChange={this.handleChange} placeholder="Trabalho 3 Descrição" type="text" required ></textarea>
+                    <input id="link3" onChange={this.handleChange} type="text" className="form-control mt-2" placeholder="Insira Link do Repositório Trab1" required />
+                    <textarea id="biografia" className="form-control mt-2" cols="33" rows="10" onChange={this.handleChange} placeholder="Biografia" required ></textarea>
+                    <textarea id="profissao" className="form-control mt-2" cols="33" rows="10" onChange={this.handleChange} placeholder="Profissão" required ></textarea>
+                    <input id="linkGitH" onChange={this.handleChange} type="text" className="form-control mt-2" placeholder="Insira o Link do GitHub" required />
+                    <input id="linkInsta" onChange={this.handleChange} type="text" className="form-control mt-2" placeholder="Insira o Link do Instagram" required />
+                    <input id="linkFace" onChange={this.handleChange} type="text" className="form-control mt-2" placeholder="Insira o Link do Facebook" required />
+                    <input id="linkLinke" onChange={this.handleChange} type="text" className="form-control mt-2" placeholder="Insira o Link do Linkedin" required />
+                    <input type="file" onChange={this.fileSelect} className="form-control mt-2" />
                     <button type="submit" onClick={this.submit} className="mt-1 mb-2 btn btn-purple btn-lg full-width">Atualizar Dados</button>
-                </div>
+                    </div>
                 </div>
             </form>
         );
